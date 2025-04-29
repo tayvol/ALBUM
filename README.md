@@ -1,2 +1,2 @@
-# MIDNIGHTS
-An album promotion website clone.
+# When Facing The Things We Turn Away from!
+An album promotion website.
