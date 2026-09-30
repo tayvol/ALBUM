@@ -33,7 +33,7 @@
         <div class="hero-copy">
           <p class="eyebrow">YOUR MUSIC ARCHIVE</p>
           <h1>Every album.<br><span>Every feeling.</span></h1>
-          <p class="hero-text">Explore albums, select a track, read your lyrics and watch the page move with the music.</p>
+          <p class="hero-text">Search an album, compare its songs head-to-head, build your personal ranking, and watch the page move with the music.</p>
           <a class="primary-btn" href="#albums">EXPLORE ALBUMS</a>
         </div>
         <div class="hero-art">
@@ -87,6 +87,52 @@
         <div id="tracklistBox" class="tracklist-box"></div>
       </section>
 
+      <section class="sorter-section" id="sorter">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SONG SORTER</p>
+            <h2 id="sorterTitle">Choose an album</h2>
+          </div>
+          <span id="sorterProgress" class="count"></span>
+        </div>
+
+        <div id="sorterIntro" class="sorter-panel">
+          <p class="sorter-kicker">HEAD-TO-HEAD RANKING</p>
+          <h3>Find your favorite songs.</h3>
+          <p>Search or select an album, then choose which song you prefer in each matchup. ALBUM will build your personal ranking from your choices.</p>
+          <button id="startSorterBtn" class="primary-btn" type="button">START SORTER</button>
+        </div>
+
+        <div id="sorterMatchup" class="sorter-panel matchup-panel" hidden>
+          <p class="sorter-kicker">WHICH SONG DO YOU PREFER?</p>
+          <div class="matchup">
+            <button id="choiceA" class="song-choice" type="button">
+              <span class="choice-label">A</span>
+              <strong id="choiceATitle">Song A</strong>
+              <span id="choiceADuration"></span>
+            </button>
+            <span class="versus">VS</span>
+            <button id="choiceB" class="song-choice" type="button">
+              <span class="choice-label">B</span>
+              <strong id="choiceBTitle">Song B</strong>
+              <span id="choiceBDuration"></span>
+            </button>
+          </div>
+          <p class="sorter-hint">Your choice is saved instantly. You can restart at any time.</p>
+        </div>
+
+        <div id="sorterResults" class="sorter-panel results-panel" hidden>
+          <div class="results-header">
+            <div>
+              <p class="sorter-kicker">YOUR PERSONAL RANKING</p>
+              <h3 id="resultsTitle">Album ranking</h3>
+            </div>
+            <button id="restartSorterBtn" class="secondary-btn" type="button">RESTART SORTER</button>
+          </div>
+          <ol id="rankingList" class="ranking-list"></ol>
+        </div>
+      </section>
+
       <section class="lyrics-section" id="lyrics">
         <div class="section-heading">
           <div>
@@ -96,7 +142,7 @@
           <a id="lyricsLink" class="text-link" href="#" target="_blank" rel="noopener">OPEN LYRICS ↗</a>
         </div>
         <div id="lyricsBox" class="lyrics-box">
-          <p class="lyrics-placeholder">Choose a track from an album to display its lyrics.</p>
+          <p class="lyrics-placeholder">Choose a track from an album to open its licensed music/lyrics source.</p>
         </div>
       </section>
     </main>
