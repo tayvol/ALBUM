@@ -1,45 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>When Facing The Things We Turn Away From</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="logo.png" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ALBUM — an album, lyrics and visualizer experience.">
+  <title>ALBUM — Music Visualizer</title>
+  <link rel="icon" href="logo.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="app-shell">
+    <header class="navbar">
+      <a class="brand" href="#" aria-label="ALBUM home">
+        <img src="logo.png" alt="" class="brand-logo">
+        <span>ALBUM</span>
+      </a>
 
-    <div class="main">
-        <div class="navbar">
-            <div class="icon">
-                <h2 class="logo">WFTTWTAF</h2>
-            </div>
+      <nav class="nav-links">
+        <a href="#albums">ALBUMS</a>
+        <a href="#visualizer">VISUALIZER</a>
+        <a href="#lyrics">LYRICS</a>
+      </nav>
 
-            <div class="menu">
-                <ul>
-                    <li><a href="http://127.0.0.1:5500/index.html">HOME</a></li>
-                    <li><a href="https://open.spotify.com/album/5T1HI88OceUlUExSsAM3GQ?si=3NmCJ_c1SISv7URROWoTmQ">SPOTIFY</a></li>
-                    <li><a href="https://genius.com/albums/Luke-hemmings/When-facing-the-things-we-turn-away-from">LYRICS</a></li>
-                    <li><a href="https://youtube.com/playlist?list=PL0ru13EYuPR5ysJc9hDjjCR_sE-z0DrfF&si=5qZ27upG4cRY5UgV">VISUALIZER</a></li>
-                    <li><a href="https://github.com/tayvol">MEE!</a></li>
-                </ul>
-            </div>
+      <div class="search-wrap">
+        <label class="sr-only" for="search">Search albums and songs</label>
+        <input id="search" type="search" placeholder="Search albums or songs..." autocomplete="off">
+      </div>
+    </header>
 
-            <div class="search">
-                <input class="srch" type="search" name="" placeholder="Type Here">
-                <a href="#"> <button class="btn">Search</button></a>
-            </div>
-
-        </div> 
-        <div class="content">
-            <h1>When Facing The Things We Turn Away From<span><br>Luke Hemmings</h1>
-            <p class="par">I'm still the same kid that I used to be</p>
-
-                <button class="cn"><a href="https://open.spotify.com/album/5T1HI88OceUlUExSsAM3GQ?si=3NmCJ_c1SISv7URROWoTmQ">LISTEN NOW</a></button>
-
-               
-            </div>
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR MUSIC ARCHIVE</p>
+          <h1>Every album.<br><span>Every feeling.</span></h1>
+          <p class="hero-text">Explore albums, select a track, read your lyrics and watch the page move with the music.</p>
+          <a class="primary-btn" href="#albums">EXPLORE ALBUMS</a>
         </div>
-    </div>
-    <script src="style.js"></script>
-</div>
+        <div class="hero-art">
+          <div class="vinyl"></div>
+          <img id="heroCover" src="t.jpg" alt="Featured album cover">
+        </div>
+      </section>
+
+      <section class="section" id="albums">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LIBRARY</p>
+            <h2>Albums</h2>
+          </div>
+          <span id="albumCount" class="count"></span>
+        </div>
+        <div id="albumGrid" class="album-grid"></div>
+        <p id="emptyState" class="empty-state" hidden>No albums or songs match your search.</p>
+      </section>
+
+      <section class="player-section" id="visualizer">
+        <div class="now-playing">
+          <img id="playerCover" src="t.jpg" alt="Album cover">
+          <div>
+            <p class="eyebrow">NOW VIEWING</p>
+            <h2 id="playerAlbum">When Facing The Things We Turn Away From</h2>
+            <p id="playerArtist">Luke Hemmings</p>
+            <p id="playerTrack">Select a track to begin.</p>
+          </div>
+        </div>
+
+        <div class="visualizer-card">
+          <div id="bars" class="bars" aria-hidden="true"></div>
+          <div class="player-controls">
+            <button id="prevBtn" class="icon-btn" aria-label="Previous track">↶</button>
+            <button id="playBtn" class="play-btn" aria-label="Play visualizer">▶</button>
+            <button id="nextBtn" class="icon-btn" aria-label="Next track">↷</button>
+          </div>
+          <div class="progress-track"><div id="progress" class="progress"></div></div>
+        </div>
+      </section>
+
+      <section class="lyrics-section" id="lyrics">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LYRICS VISUALIZER</p>
+            <h2 id="lyricsTitle">Choose a song</h2>
+          </div>
+          <a id="lyricsLink" class="text-link" href="#" target="_blank" rel="noopener">OPEN LYRICS ↗</a>
+        </div>
+        <div id="lyricsBox" class="lyrics-box">
+          <p class="lyrics-placeholder">Choose a track from an album to display its lyrics.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>ALBUM © 2026</span>
+      <span>Built for albums, lyrics & visualizers.</span>
+    </footer>
+  </div>
+
+  <script src="albums.js"></script>
+  <script src="style.js"></script>
 </body>
 </html>
