@@ -1,29 +1,12 @@
-(function(doc){
-    var scriptElm = doc.scripts[doc.scripts.length - 1];
-    var warn = ['[ionicons] Deprecated script, please remove: ' + scriptElm.outerHTML];
-  
-    warn.push('To improve performance it is recommended to set the differential scripts in the head as follows:')
-  
-    var parts = scriptElm.src.split('/');
-    parts.pop();
-    parts.push('ionicons');
-    var url = parts.join('/');
-  
-    var scriptElm = doc.createElement('script');
-    scriptElm.setAttribute('type', 'module');
-    scriptElm.src = url + '/ionicons.esm.js';
-    warn.push(scriptElm.outerHTML);
-    scriptElm.setAttribute('data-stencil-namespace', 'ionicons');
-    doc.head.appendChild(scriptElm);
-  
-    
-    scriptElm = doc.createElement('script');
-    scriptElm.setAttribute('nomodule', '');
-    scriptElm.src = url + '/ionicons.js';
-    warn.push(scriptElm.outerHTML);
-    scriptElm.setAttribute('data-stencil-namespace', 'ionicons');
-    doc.head.appendChild(scriptElm)
-    
-    console.warn(warn.join('\n'));
-  
-  })(document);
+const library=window.ALBUM_LIBRARY||[];const $=s=>document.querySelector(s);
+const albumGrid=$("#albumGrid"),emptyState=$("#emptyState"),albumCount=$("#albumCount"),search=$("#search");
+const heroCover=$("#heroCover"),playerCover=$("#playerCover"),playerAlbum=$("#playerAlbum"),playerArtist=$("#playerArtist"),playerTrack=$("#playerTrack"),lyricsTitle=$("#lyricsTitle"),lyricsBox=$("#lyricsBox"),lyricsLink=$("#lyricsLink"),bars=$("#bars"),progress=$("#progress"),playBtn=$("#playBtn"),prevBtn=$("#prevBtn"),nextBtn=$("#nextBtn"),visualizer=$(".visualizer-card");
+let selectedAlbum=library[0]||null,selectedTrackIndex=0,playing=false,progressTimer=null;
+function createBars(){bars.innerHTML="";for(let i=0;i<34;i++){const b=document.createElement("span");b.className="bar";b.style.setProperty("--h",(0.55+Math.random()*1.7).toFixed(2));b.style.animationDelay=(i*.025).toFixed(2)+"s";bars.appendChild(b)}}
+function renderAlbums(query=""){const q=query.trim().toLowerCase(),matches=library.filter(a=>{const x=(a.title+" "+a.artist).toLowerCase().includes(q);const t=(a.tracks||[]).some(s=>s.title.toLowerCase().includes(q));return x||t});albumGrid.innerHTML="";albumCount.textContent=`${matches.length} / ${library.length}`;matches.forEach(a=>{const card=document.createElement("article");card.className="album-card"+(selectedAlbum?.id===a.id?" active":"");card.innerHTML=`<div class="cover"><img src="${a.cover}" alt="${escapeHtml(a.title)} cover" loading="lazy"></div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.artist)}</p><div class="year">${escapeHtml(a.year||"")} · ${(a.tracks||[]).length} TRACKS</div>`;card.onclick=()=>selectAlbum(a.id);albumGrid.appendChild(card)});emptyState.hidden=matches.length!==0}
+function selectAlbum(id){selectedAlbum=library.find(a=>a.id===id);if(!selectedAlbum)return;selectedTrackIndex=0;heroCover.src=selectedAlbum.cover;updatePlayer();renderAlbums(search.value);document.querySelector("#visualizer").scrollIntoView({behavior:"smooth",block:"center"})}
+function selectTrack(i){if(!selectedAlbum?.tracks?.length)return;selectedTrackIndex=(i+selectedAlbum.tracks.length)%selectedAlbum.tracks.length;updatePlayer()}
+function updatePlayer(){if(!selectedAlbum)return;const tracks=selectedAlbum.tracks||[],track=tracks[selectedTrackIndex];playerCover.src=selectedAlbum.cover;playerAlbum.textContent=selectedAlbum.title;playerArtist.textContent=selectedAlbum.artist;if(!track){playerTrack.textContent="Add tracks in albums.js to start the visualizer.";lyricsTitle.textContent="Choose a song";lyricsBox.innerHTML='<p class="lyrics-placeholder">Add your songs and lyrics inside <strong>albums.js</strong>. The website will build the visualizer automatically.</p>';lyricsLink.href=selectedAlbum.lyricsUrl||"#";lyricsLink.style.visibility=selectedAlbum.lyricsUrl?"visible":"hidden";return}playerTrack.textContent=track.title+(track.duration?" · "+track.duration:"");lyricsTitle.textContent=track.title;lyricsBox.innerHTML=Array.isArray(track.lyrics)&&track.lyrics.length?track.lyrics.map((line,i)=>`<p class="lyric-line" data-index="${i}">${escapeHtml(line)}</p>`).join(""):'<p class="lyrics-placeholder">Lyrics have not been added for this track. Add your own lyrics to albums.js or use the external lyrics link.</p>';lyricsLink.href=track.lyricsUrl||selectedAlbum.lyricsUrl||selectedAlbum.spotify||"#";lyricsLink.style.visibility="visible"}
+function togglePlaying(){playing=!playing;visualizer.classList.toggle("playing",playing);playBtn.textContent=playing?"Ⅱ":"▶";clearInterval(progressTimer);if(playing){let v=0;progressTimer=setInterval(()=>{v+=.6;progress.style.width=v+"%";if(v>=100){clearInterval(progressTimer);progress.style.width="0%";playing=false;visualizer.classList.remove("playing");playBtn.textContent="▶"}},100)}}
+function escapeHtml(v=""){return v.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+search.addEventListener("input",()=>renderAlbums(search.value));playBtn.addEventListener("click",togglePlaying);prevBtn.addEventListener("click",()=>selectTrack(selectedTrackIndex-1));nextBtn.addEventListener("click",()=>selectTrack(selectedTrackIndex+1));createBars();renderAlbums();updatePlayer();
