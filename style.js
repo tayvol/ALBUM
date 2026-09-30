@@ -4,7 +4,9 @@ const albumGrid=$("#albumGrid"),emptyState=$("#emptyState"),albumCount=$("#album
 const heroCover=$("#heroCover"),playerCover=$("#playerCover"),playerAlbum=$("#playerAlbum"),playerArtist=$("#playerArtist"),playerTrack=$("#playerTrack");
 const lyricsTitle=$("#lyricsTitle"),lyricsBox=$("#lyricsBox"),lyricsLink=$("#lyricsLink"),bars=$("#bars"),progress=$("#progress"),playBtn=$("#playBtn"),prevBtn=$("#prevBtn"),nextBtn=$("#nextBtn"),visualizer=document.querySelector(".visualizer-card");
 const tracklistBox=$("#tracklistBox"),tracklistTitle=$("#tracklistTitle"),trackCount=$("#trackCount");
+const sorterTitle=$("#sorterTitle"),sorterProgress=$("#sorterProgress"),sorterIntro=$("#sorterIntro"),sorterMatchup=$("#sorterMatchup"),sorterResults=$("#sorterResults"),startSorterBtn=$("#startSorterBtn"),restartSorterBtn=$("#restartSorterBtn"),choiceA=$("#choiceA"),choiceB=$("#choiceB"),choiceATitle=$("#choiceATitle"),choiceBTitle=$("#choiceBTitle"),choiceADuration=$("#choiceADuration"),choiceBDuration=$("#choiceBDuration"),resultsTitle=$("#resultsTitle"),rankingList=$("#rankingList");
 let selectedAlbum=library[0]||null,selectedTrackIndex=0,playing=false,progressTimer=null;
+let sorter={active:false,sorted:[],queue:[],current:null,low:0,high:0,comparisons:0};
 
 function createBars(){bars.innerHTML="";for(let i=0;i<34;i++){const b=document.createElement("span");b.className="bar";b.style.setProperty("--h",(0.55+Math.random()*1.7).toFixed(2));b.style.animationDelay=(i*.025).toFixed(2)+"s";bars.appendChild(b)}}
 
@@ -20,8 +22,9 @@ function renderAlbums(query=""){
   matches.forEach(a=>{
     const card=document.createElement("article");
     card.className="album-card"+(selectedAlbum?.id===a.id?" active":"");
-    card.innerHTML=`<div class="cover"><img src="${a.cover}" alt="${escapeHtml(a.title)} cover" loading="lazy"></div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.artist)}</p><div class="year">${escapeHtml(a.year||"")} · ${(a.tracks||[]).length} TRACKS</div>`;
+    card.innerHTML=`<div class="cover"><img src="${a.cover}" alt="${escapeHtml(a.title)} cover" loading="lazy"></div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.artist)}</p><div class="year">${escapeHtml(a.year||"")} · ${(a.tracks||[]).length} TRACKS</div><button class="sort-album-btn" type="button">SORT SONGS</button>`;
     card.onclick=()=>selectAlbum(a.id);
+    card.querySelector(".sort-album-btn").onclick=e=>{e.stopPropagation();selectAlbum(a.id);startSorter();};
     albumGrid.appendChild(card);
   });
   emptyState.hidden=matches.length!==0;
