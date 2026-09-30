@@ -96,3 +96,15 @@ footer{border-top:1px solid var(--line);padding:25px 0 35px;display:flex;justify
   .now-playing{align-items:flex-start}.now-playing img{width:95px;height:95px}.now-playing h2{font-size:19px}
   .lyrics-box{padding:24px}.lyric-line{font-size:18px}footer{flex-direction:column;gap:8px}
 }
+
+.tracklist-section{padding:0 0 100px}
+.tracklist-box{border:1px solid var(--line);background:var(--panel);border-radius:8px;overflow:hidden}
+.track-row{width:100%;display:grid;grid-template-columns:55px 1fr 80px;gap:15px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--text);padding:17px 20px;cursor:pointer;transition:.2s}
+.track-row:last-child{border-bottom:0}
+.track-row:hover,.track-row.active{background:var(--panel-2)}
+.track-number,.track-duration{font:11px 'DM Mono',monospace;color:var(--muted)}
+.track-row.active .track-number,.track-row.active .track-name{color:var(--accent)}
+.track-name{font-size:14px}
+.track-duration{text-align:right}
+.player-note{margin-top:14px;text-align:center;color:var(--muted);font:10px 'DM Mono',monospace}
+@media(max-width:560px){.track-row{grid-template-columns:38px 1fr 60px;padding:14px 13px}.track-name{font-size:13px}}
