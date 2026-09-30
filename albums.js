@@ -1,29 +1,4 @@
-const albums = [
-  {
-    id: "on-avery-island",
-    title: "On Avery Island",
-    artist: "Neutral Milk Hotel",
-    year: "1996",
-    cover: "covers/on-avery-island.svg",
-    spotify: "https://open.spotify.com/album/0BtpvfeUKWxoZQQDnKb0kP",
-    appleMusic: "https://music.apple.com/us/album/on-avery-island/1839074660",
-    lyricsUrl: "https://open.spotify.com/album/0BtpvfeUKWxoZQQDnKb0kP",
-    tracks: [
-      { number: 1, title: "Song Against Sex", duration: "3:40" },
-      { number: 2, title: "You've Passed", duration: "2:53" },
-      { number: 3, title: "Someone Is Waiting", duration: "2:31" },
-      { number: 4, title: "A Baby for Pree", duration: "1:21" },
-      { number: 5, title: "Marching Theme", duration: "2:58" },
-      { number: 6, title: "Where You'll Find Me Now", duration: "4:04" },
-      { number: 7, title: "Avery Island / April 1st", duration: "1:48" },
-      { number: 8, title: "Gardenhead / Leave Me Alone", duration: "3:13" },
-      { number: 9, title: "Three Peaches", duration: "4:01" },
-      { number: 10, title: "Naomi", duration: "4:53" },
-      { number: 11, title: "April 8th", duration: "2:47" },
-      { number: 12, title: "Pree-Sisters Swallowing a Donkey's Eye", duration: "13:49" }
-    ]
-  },
-  {
+const albums = [  {
     id: "curve-of-the-earth",
     title: "Curve of the Earth",
     artist: "Mystery Jets",
@@ -69,5 +44,7 @@ const albums = [
     ]
   }
 ];
+
+window.ALBUM_LIBRARY = albums;
 
 window.ALBUM_LIBRARY = albums;
